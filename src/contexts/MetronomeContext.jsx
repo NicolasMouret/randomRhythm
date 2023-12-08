@@ -9,6 +9,8 @@ function MetronomeProvider({ children }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(120);
   const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
+  const [currentMeasure, setCurrentMeasure] = useState(1);
+  const [currentBeat, setCurrentBeat] = useState(1);
 
   useEffect(() => {
     // Create synth and envelope
@@ -33,8 +35,12 @@ function MetronomeProvider({ children }) {
       const index = Number(Transport.position.split(':')[1]) + 1;
       if (index === 1) {
         synth.triggerAttackRelease('C6', '16n', time);
+        setCurrentBeat(prevBeat => prevBeat + 1);
+        console.log("current beat", currentBeat)
       } else {
         synth.triggerAttackRelease('C5', '16n', time);
+        setCurrentBeat(prevBeat => prevBeat + 1);
+        console.log("current beat", currentBeat)
       }
     }, '4n');
 
@@ -45,10 +51,12 @@ function MetronomeProvider({ children }) {
     // Start loop if isPlaying is true
     if (isPlaying) {
       Transport.stop();
+      setCurrentBeat(1);
       loop.start(0);
       Transport.start();
     } else {
       Transport.stop();
+      setCurrentBeat(1);
     }
 
     // Clear loop when the component is unmounted
@@ -87,6 +95,7 @@ function MetronomeProvider({ children }) {
         isPlaying,
         bpm,
         beatsPerMeasure,
+        currentMeasure,
       }}
     >
       {children}

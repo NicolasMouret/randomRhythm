@@ -1,10 +1,10 @@
-import PlayButton from '@/components/PlayButton';
-import SetBpm from '@/components/SetBpm';
+import PlayButton from './PlayButton';
+import SetBpm from './SetBpm';
 import SetTimeSignature from './SetTimeSignature';
 
 export default function MetronomeControl() {
   return (
-    <div className="flex flex-col items-center gap-2 h-[20%] w-[20vw] border-2 p-4">
+    <div className="flex flex-col items-center gap-3 h-[20%] w-[20vw] border-2 border-slate-400 rounded-lg p-4">
       <SetBpm />
       <SetTimeSignature />
       <PlayButton />  

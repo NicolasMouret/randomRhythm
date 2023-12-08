@@ -5,9 +5,10 @@ export default function SetTimeSignature() {
   const { handleSetTimeSig, beatsPerMeasure } = useContext(MetronomeContext);
 
   return (
-    <div className="time-sig-container">
-      <span>Time signature: </span>
+    <div>
+      <span>Time signature : </span>
       <select
+        className="pt-1 pl-2 pr-1"
         name="time-signature"
         id="time-signature"
         value={beatsPerMeasure}
