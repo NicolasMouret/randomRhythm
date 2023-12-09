@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid';
 import SingleWholeBeat from '@/components/RhythmDisplay/SingleWholeBeat';
 
 export function notesFilteredByTags(tagsSelected) {
-  console.log("before notes", notesCollection)
   const notesFilteredByTags = notesCollection.filter(note => {
     return note.tag.every(tag => tagsSelected.includes(tag));
   });
@@ -43,19 +42,32 @@ export function getRandomElementFromMeasure(measureToDisplay) {
 }
 
 // create a new measurToDisplay with one element changed
-export function newMeasureWithOneNoteChange(measureToDisplay, notesSelection) {
-  const randomElement = getRandomElementFromMeasure(measureToDisplay)
-  const randomElementPrevNote = randomElement.props.note
-  const newRandomNote = getNewRandomNoteFromSelection(randomElementPrevNote, notesSelection)
-  const newMeasureToDisplay = measureToDisplay.map(element => {
-    if (element.props.id === randomElement.props.id) {
-      return (
-        <SingleWholeBeat key={nanoid()} note={newRandomNote} id={randomElement.props.id}/>
-      )
-    } else {
-      return element
-    }
-  })
-  return newMeasureToDisplay
+export function newMeasureWithOneNoteChange(measureToDisplay, notesSelection, setMeasureToDisplay) {
+  const randomElement = getRandomElementFromMeasure(measureToDisplay);
+  const randomElementPrevNote = randomElement.props.note;
+  const newRandomNote = getNewRandomNoteFromSelection(randomElementPrevNote, notesSelection);
+
+  // Use the functional form of setMeasureToDisplay to ensure the latest state
+  setMeasureToDisplay(prevMeasure => {
+    return prevMeasure.map(element => {
+      if (element.props.id === randomElement.props.id) {
+        return <SingleWholeBeat key={nanoid()} note={newRandomNote} id={randomElement.props.id} />;
+      } else {
+        return element;
+      }
+    });
+  });
 }
 
+// get current measure from currentBeat and beatsPerMeasure
+export function getCurrentMeasure(currentBeat, beatsPerMeasure) {
+  return Math.ceil(currentBeat / beatsPerMeasure);
+}
+
+export function randomNoteChange(measureToDisplay, notesSelection, setMeasureToDisplay) {
+  setMeasureToDisplay(newMeasureWithOneNoteChange(measureToDisplay, notesSelection))
+}
+
+export function isTimeForRandomChange(currentBeat, beatsPerMeasure, numberOfBarsBetweenChanges) {
+  return currentBeat % (beatsPerMeasure * numberOfBarsBetweenChanges) === 0
+}

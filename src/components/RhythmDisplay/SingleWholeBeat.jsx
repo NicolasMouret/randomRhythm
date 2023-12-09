@@ -5,7 +5,7 @@ export default function SingleWholeBeat({note, id}) {
   return (
     <Image 
       id={id}
-      className=''
+      className={``}
       src={imagePath} 
       alt={name} 
       width={350} 
