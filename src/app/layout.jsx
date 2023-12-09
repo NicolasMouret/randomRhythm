@@ -1,6 +1,5 @@
 import { Josefin_Sans } from 'next/font/google'
 import { MetronomeProvider } from '@/contexts/MetronomeContext';
-import { OptionsSelectedProvider } from '@/contexts/OptionsSelectedContext';
 import './globals.css'
 
 const Josefin = Josefin_Sans({ subsets: ['latin'] })
@@ -14,12 +13,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <MetronomeProvider>
-        <OptionsSelectedProvider>
           <body className={Josefin.className}>
           <h1 className="mt-10 text-center text-7xl text-slate-800">RandomRhythm</h1>
           {children}
           </body>
-        </OptionsSelectedProvider>
       </MetronomeProvider>
     </html>
   )

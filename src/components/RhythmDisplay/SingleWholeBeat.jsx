@@ -10,7 +10,7 @@ export default function SingleWholeBeat({note, id}) {
       alt={name} 
       width={350} 
       height={300} 
-      style={{width: "20%", 
+      style={{ 
       minHeight: "250px",
       maxHeight: "300px",}}
     />
