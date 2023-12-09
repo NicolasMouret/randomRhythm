@@ -27,7 +27,7 @@
   color: #36395A;
   cursor: pointer;
   display: inline-flex;
-  font-family: "JetBrains Mono",monospace;
+  width: 100px;
   height: 48px;
   justify-content: center;
   line-height: 1;
@@ -44,7 +44,7 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow,transform;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .playBtn:focus {

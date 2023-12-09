@@ -5,7 +5,7 @@ import { MetronomeContext } from "@/contexts/MetronomeContext";
 import {
   createMeasureToDisplay,
 } from '@/utils/utilsFunctions';
-import { useContext, useEffect, useState } from 'react'; 
+import { useContext, useEffect } from 'react'; 
 
 export default function Home() {
   const {beatsPerMeasure, 

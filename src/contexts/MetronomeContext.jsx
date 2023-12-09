@@ -15,12 +15,13 @@ function MetronomeProvider({ children }) {
   const isTimeForRandomChangeRef = useRef(false);
   const [tagsSelected, setTagsSelected] = useState(["quarter", "quarterRest","eight", "eightRest" ]);
   const [notesSelection, setNotesSelection ]= useState(notesFilteredByTags(tagsSelected))
-  const [numberOfBarsBetweenChanges, setNumberOfBarsBetweenChanges] = useState(3);
+  const [numberOfBarsBetweenChanges, setNumberOfBarsBetweenChanges] = useState(2);
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(120);
   const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
   const [currentMeasure, setCurrentMeasure] = useState(1);
   const [currentBeat, setCurrentBeat] = useState(1);
+  const [bouncingElementIndex, setBouncingElementIndex] = useState(null);
   const [measureToDisplay, setMeasureToDisplay] = useState(createMeasureToDisplay(notesSelection, beatsPerMeasure))
   
   const randomNoteChange = () => {
@@ -29,6 +30,13 @@ function MetronomeProvider({ children }) {
 
   const updateCurrentBeat = () => {
     setCurrentBeat(prevBeat => prevBeat + 1);
+  }
+
+  const applyBounceEffect = (index) => {
+    setBouncingElementIndex(index);
+    setTimeout(() => {
+      setBouncingElementIndex(null);
+    }, 200);
   }
 
   useEffect(() => {
@@ -57,18 +65,21 @@ function MetronomeProvider({ children }) {
       const index = Number(Transport.position.split(':')[1]) + 1;
       if (index === 1) {
         synth.triggerAttackRelease('C6', '16n', time);
+        applyBounceEffect(index - 1);
         //Only after the first iteration of the loop
         if (!loopfirstIterationRef.current) {
           updateCurrentBeat();
         }
       } else if (index === beatsPerMeasure ) {
         synth.triggerAttackRelease('C5', '16n', time); 
+        applyBounceEffect(index - 1);
         updateCurrentBeat();
         if (isTimeForRandomChangeRef.current) {
           randomNoteChange();
         }
       } else {
         synth.triggerAttackRelease('C5', '16n', time);
+        applyBounceEffect(index - 1);
         updateCurrentBeat();
       }
       loopfirstIterationRef.current = false;      
@@ -145,6 +156,7 @@ function MetronomeProvider({ children }) {
         numberOfBarsBetweenChanges,
         setNumberOfBarsBetweenChanges,
         randomNoteChange,
+        bouncingElementIndex,
       }}
     >
       {children}
