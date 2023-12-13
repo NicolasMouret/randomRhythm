@@ -41,22 +41,29 @@ export function getRandomElementFromMeasure(measureToDisplay) {
   return randomElement
 }
 
-// create a new measurToDisplay with one element changed
-export function newMeasureWithOneNoteChange(measureToDisplay, notesSelection, setMeasureToDisplay) {
-  const randomElement = getRandomElementFromMeasure(measureToDisplay);
-  const randomElementPrevNote = randomElement.props.note;
-  const newRandomNote = getNewRandomNoteFromSelection(randomElementPrevNote, notesSelection);
+export function getListOfNotesToChange(measureToDisplay, numberOfNotesToChange) {
+  const notesToChange = [];
+  for (let i = 0; i < numberOfNotesToChange; i++) {
+    let randomElement = getRandomElementFromMeasure(measureToDisplay);
+    while (notesToChange.includes(randomElement)) {
+      randomElement = getRandomElementFromMeasure(measureToDisplay);
+    }
+    notesToChange.push(randomElement);
+  }
+  return notesToChange
+}
 
-  // Use the functional form of setMeasureToDisplay to ensure the latest state
-  setMeasureToDisplay(prevMeasure => {
-    return prevMeasure.map(element => {
-      if (element.props.id === randomElement.props.id) {
-        return <SingleWholeBeat key={nanoid()} note={newRandomNote} id={randomElement.props.id} />;
-      } else {
-        return element;
-      }
-    });
+export function getNewMeasureWithChanges(measureToDisplay, notesSelection, notesToChange) {
+  const newMeasure = measureToDisplay.map(element => {
+    if (notesToChange.includes(element)) {
+      const prevNote = element.props.note;
+      const newNote = getNewRandomNoteFromSelection(prevNote, notesSelection);
+      return <SingleWholeBeat key={nanoid()} note={newNote} id={element.props.id} />;
+    } else {
+      return element;
+    }
   });
+  return newMeasure
 }
 
 // get current measure from currentBeat and beatsPerMeasure

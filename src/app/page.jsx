@@ -1,5 +1,6 @@
 'use client';
 import MetronomeControl from '@/components/MetronomeControl/MetronomeControl';
+import OptionsControl from '@/components/OptionsControl/OptionsControl';
 import RythmDisplay from '@/components/RhythmDisplay/RythmDisplay';
 import { MetronomeContext } from "@/contexts/MetronomeContext";
 import {
@@ -12,8 +13,7 @@ export default function Home() {
     currentMeasure, 
     measureToDisplay, 
     setMeasureToDisplay, 
-    notesSelection,
-    randomNoteChange} = useContext(MetronomeContext)
+    notesSelection} = useContext(MetronomeContext)
 
   useEffect(() => {
     setMeasureToDisplay(createMeasureToDisplay(notesSelection, beatsPerMeasure))
@@ -21,7 +21,10 @@ export default function Home() {
 
   return (
       <main className="flex flex-col items-center justify-center gap-16 mt-12">
-        <MetronomeControl /> 
+        <div className="flex gap-6">
+          <MetronomeControl /> 
+          <OptionsControl />
+        </div>
         <RythmDisplay notesSelection={notesSelection} measureToDisplay={measureToDisplay}/>
       </main>
   )
