@@ -12,6 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+    <head>
+      <link rel="icon" href="/music-icon.svg" />
+    </head>
       <MetronomeProvider>
           <body className={Josefin.className}>
           <h1 className="mt-10 text-center text-7xl text-slate-800">RandomRhythm</h1>
