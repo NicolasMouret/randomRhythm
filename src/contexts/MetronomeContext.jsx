@@ -2,7 +2,8 @@
 
 import { getCurrentMeasure, 
   notesFilteredByTags, 
-  newMeasureWithOneNoteChange, 
+  getListOfNotesToChange,
+  getNewMeasureWithChanges, 
   createMeasureToDisplay,
   isTimeForRandomChange } from "@/utils/utilsFunctions";
 import { createContext, useEffect, useState, useRef } from "react";
@@ -16,6 +17,7 @@ function MetronomeProvider({ children }) {
   const [tagsSelected, setTagsSelected] = useState(["quarter", "quarterRest","eight", "eightRest" ]);
   const [notesSelection, setNotesSelection ]= useState(notesFilteredByTags(tagsSelected))
   const [numberOfBarsBetweenChanges, setNumberOfBarsBetweenChanges] = useState(2);
+  const [numberOfNotesToChange, setNumberOfNotesToChange] = useState(2);
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(120);
   const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
@@ -25,7 +27,9 @@ function MetronomeProvider({ children }) {
   const [measureToDisplay, setMeasureToDisplay] = useState(createMeasureToDisplay(notesSelection, beatsPerMeasure))
   
   const randomNoteChange = () => {
-    newMeasureWithOneNoteChange(measureToDisplay, notesSelection, setMeasureToDisplay);
+    const notesToChange = getListOfNotesToChange(measureToDisplay, numberOfNotesToChange);
+    const newMeasure = getNewMeasureWithChanges(measureToDisplay, notesSelection, notesToChange);
+    setMeasureToDisplay(newMeasure);
   }
 
   const updateCurrentBeat = () => {
@@ -157,6 +161,8 @@ function MetronomeProvider({ children }) {
         setNumberOfBarsBetweenChanges,
         randomNoteChange,
         bouncingElementIndex,
+        numberOfNotesToChange,
+        setNumberOfNotesToChange,
       }}
     >
       {children}
