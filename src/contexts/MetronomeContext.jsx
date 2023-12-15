@@ -27,9 +27,12 @@ function MetronomeProvider({ children }) {
   const [measureToDisplay, setMeasureToDisplay] = useState(createMeasureToDisplay(notesSelection, beatsPerMeasure))
   
   const randomNoteChange = () => {
-    const notesToChange = getListOfNotesToChange(measureToDisplay, numberOfNotesToChange);
-    const newMeasure = getNewMeasureWithChanges(measureToDisplay, notesSelection, notesToChange);
-    setMeasureToDisplay(newMeasure);
+    setMeasureToDisplay((prevMeasure) => {
+      const notesToChangeID = getListOfNotesToChange(prevMeasure, numberOfNotesToChange);
+      const newMeasure = getNewMeasureWithChanges(prevMeasure, notesSelection, notesToChangeID);
+      console.log("notes to change", notesToChangeID);
+      return newMeasure;
+    });
   }
 
   const updateCurrentBeat = () => {
