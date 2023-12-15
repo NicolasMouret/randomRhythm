@@ -42,20 +42,19 @@ export function getRandomElementFromMeasure(measureToDisplay) {
 }
 
 export function getListOfNotesToChange(measureToDisplay, numberOfNotesToChange) {
-  const notesToChange = [];
-  for (let i = 0; i < numberOfNotesToChange; i++) {
+  const notesToChangeID = new Set();
+  while (notesToChangeID.size < numberOfNotesToChange) {
     let randomElement = getRandomElementFromMeasure(measureToDisplay);
-    while (notesToChange.includes(randomElement)) {
-      randomElement = getRandomElementFromMeasure(measureToDisplay);
-    }
-    notesToChange.push(randomElement);
+    notesToChangeID.add(randomElement.props.id);
   }
-  return notesToChange
+  return Array.from(notesToChangeID);
 }
 
-export function getNewMeasureWithChanges(measureToDisplay, notesSelection, notesToChange) {
+export function getNewMeasureWithChanges(measureToDisplay, notesSelection, notesToChangeID) {
+  console.log("measure to display function", measureToDisplay)
   const newMeasure = measureToDisplay.map(element => {
-    if (notesToChange.includes(element)) {
+    if (notesToChangeID.includes(element.props.id)) {
+      console.log("change note", element.props.id)
       const prevNote = element.props.note;
       const newNote = getNewRandomNoteFromSelection(prevNote, notesSelection);
       return <SingleWholeBeat key={nanoid()} note={newNote} id={element.props.id} />;

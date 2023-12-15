@@ -5,7 +5,7 @@ export default function SetBpm() {
   const { handleSetBPM, bpm } = useContext(MetronomeContext);
 
   return (
-    <div className="flex flex-col items-center w-[80%]">
+    <div className="flex flex-col items-center w-[90%]">
       <label htmlFor="bpm">BPM : {bpm}</label>
       <input
         className="w-full"
