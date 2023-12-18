@@ -34,6 +34,20 @@ const notesCollection = [
     tag: ["eight", "eightRest"],
     imagePath: "/demiSoupir-croche.png"
   },
+  {
+    id: 6,
+    name: "sixteenFull",
+    value: 1,
+    tag: ["sixteen"],
+    imagePath: "/doubleCrocheFull.png"
+  },
+  {
+    id: 7,
+    name: "eightTriplet",
+    value: 1,
+    tag: ["eight", "triplet"],
+    imagePath: "/crocheTriolet2.png"
+  },
 ]
 
 export default notesCollection

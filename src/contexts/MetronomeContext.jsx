@@ -14,7 +14,13 @@ const MetronomeContext = createContext();
 function MetronomeProvider({ children }) {
   const loopfirstIterationRef = useRef(true);
   const isTimeForRandomChangeRef = useRef(false);
-  const [tagsSelected, setTagsSelected] = useState(["quarter", "quarterRest","eight", "eightRest" ]);
+  const [tagsSelected, setTagsSelected] = useState([
+    "quarter", 
+    "quarterRest",
+    "eight", 
+    "eightRest", 
+    "sixteen",
+    "triplet" ]);
   const [notesSelection, setNotesSelection ]= useState(notesFilteredByTags(tagsSelected))
   const [numberOfBarsBetweenChanges, setNumberOfBarsBetweenChanges] = useState(2);
   const [numberOfNotesToChange, setNumberOfNotesToChange] = useState(2);
@@ -127,6 +133,11 @@ function MetronomeProvider({ children }) {
     setCurrentMeasure(getCurrentMeasure(currentBeat, beatsPerMeasure));
     isTimeForRandomChangeRef.current = isTimeForRandomChange((currentBeat + 1), beatsPerMeasure, numberOfBarsBetweenChanges);
   }, [currentBeat]);
+
+  // Get tags changes 
+  useEffect(() => {
+    setNotesSelection(notesFilteredByTags(tagsSelected))
+  }, [tagsSelected])
 
   const handleSetBPM = (e) => {
     setBpm(+e.target.value);

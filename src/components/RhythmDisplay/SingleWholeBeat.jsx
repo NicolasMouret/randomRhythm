@@ -8,7 +8,7 @@ export default function SingleWholeBeat({note, id}) {
       className={``}
       src={imagePath} 
       alt={name} 
-      width={350} 
+      width={250} 
       height={300} 
       style={{ 
       minHeight: "250px",
