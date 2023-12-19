@@ -1,13 +1,5 @@
-import notesCollection from '@/notesCollection/notesCollection';
 import { nanoid } from 'nanoid';
 import SingleWholeBeat from '@/components/RhythmDisplay/SingleWholeBeat';
-
-export function notesFilteredByTags(tagsSelected) {
-  const notesFilteredByTags = notesCollection.filter(note => {
-    return note.tag.every(tag => tagsSelected.includes(tag));
-  });
-  return notesFilteredByTags
-}
 
 export function getOneRandomNoteFromSelection(notesSelection) {
   const randomNote = notesSelection[Math.floor(Math.random() * notesSelection.length)]

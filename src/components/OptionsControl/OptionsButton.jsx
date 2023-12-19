@@ -1,9 +1,13 @@
 import { IoOptionsOutline } from "react-icons/io5";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { MetronomeContext } from "@/contexts/MetronomeContext";
+import { useContext } from "react";
 
 export default function OptionsButton({isOptionsOpen, setIsOptionsOpen}) {
+  const {setIsPlaying} = useContext(MetronomeContext)
   const toggleOptions = () => {
     setIsOptionsOpen(!isOptionsOpen)
+    setIsPlaying(false)
   }
   return (
     <button 

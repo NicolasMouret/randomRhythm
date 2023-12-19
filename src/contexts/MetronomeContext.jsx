@@ -1,11 +1,11 @@
 'use client';
 
 import { getCurrentMeasure, 
-  notesFilteredByTags, 
   getListOfNotesToChange,
   getNewMeasureWithChanges, 
   createMeasureToDisplay,
   isTimeForRandomChange } from "@/utils/utilsFunctions";
+import { defaultNotesSelection } from "@/notesCollection/notesCollection";
 import { createContext, useEffect, useState, useRef } from "react";
 import { Envelope, Loop, Synth, Transport } from 'tone';
 
@@ -14,16 +14,9 @@ const MetronomeContext = createContext();
 function MetronomeProvider({ children }) {
   const loopfirstIterationRef = useRef(true);
   const isTimeForRandomChangeRef = useRef(false);
-  const [tagsSelected, setTagsSelected] = useState([
-    "quarter", 
-    "quarterRest",
-    "eight", 
-    "eightRest", 
-    "sixteen",
-    "triplet" ]);
-  const [notesSelection, setNotesSelection ]= useState(notesFilteredByTags(tagsSelected))
+  const [notesSelection, setNotesSelection ]= useState(defaultNotesSelection)
   const [numberOfBarsBetweenChanges, setNumberOfBarsBetweenChanges] = useState(2);
-  const [numberOfNotesToChange, setNumberOfNotesToChange] = useState(2);
+  const [numberOfNotesToChange, setNumberOfNotesToChange] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(120);
   const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
@@ -134,11 +127,6 @@ function MetronomeProvider({ children }) {
     isTimeForRandomChangeRef.current = isTimeForRandomChange((currentBeat + 1), beatsPerMeasure, numberOfBarsBetweenChanges);
   }, [currentBeat]);
 
-  // Get tags changes 
-  useEffect(() => {
-    setNotesSelection(notesFilteredByTags(tagsSelected))
-  }, [tagsSelected])
-
   const handleSetBPM = (e) => {
     setBpm(+e.target.value);
   };
@@ -161,14 +149,13 @@ function MetronomeProvider({ children }) {
         handleSetBPM,
         handleSetTimeSig,
         isPlaying,
+        setIsPlaying,
         bpm,
         beatsPerMeasure,
         currentMeasure,
         currentBeat,
         notesSelection,
         setNotesSelection,
-        tagsSelected,
-        setTagsSelected,
         measureToDisplay,
         setMeasureToDisplay,
         numberOfBarsBetweenChanges,
