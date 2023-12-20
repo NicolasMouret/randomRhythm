@@ -11,7 +11,7 @@ const NoteCheckbox = (note) => {
     if (e.target.checked) {
       setNotesSelection([...notesSelection, note])
     } //if note is the only one selected, don't remove it
-    else if (notesSelection.length > 1) {
+    else if (notesSelection.length > 2) {
       setNotesSelection(notesSelection.filter(selectedNote => selectedNote !== note))
     }
   }  
@@ -27,7 +27,7 @@ const NoteCheckbox = (note) => {
         checked={notesSelection.includes(note)}
       />
       <Image 
-        className={`cursor-pointer opacity-40 p-1 bg-slate-200 peer-checked:opacity-100 peer-checked:rounded-lg`} 
+        className={`cursor-pointer opacity-40 p-1 bg-slate-300 peer-checked:opacity-100 peer-checked:rounded-lg`} 
         src={note.imagePath} 
         alt={note.name} 
         width={45} 
