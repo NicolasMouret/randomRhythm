@@ -1,12 +1,14 @@
 'use client';
 
-import { getCurrentMeasure, 
-  getListOfNotesToChange,
-  getNewMeasureWithChanges, 
-  createMeasureToDisplay,
-  isTimeForRandomChange } from "@/utils/utilsFunctions";
 import { defaultNotesSelection } from "@/notesCollection/notesCollection";
-import { createContext, useEffect, useState, useRef } from "react";
+import {
+  createMeasureToDisplay,
+  getCurrentMeasure,
+  getListOfNotesToChange,
+  getNewMeasureWithChanges,
+  isTimeForRandomChange
+} from "@/utils/utilsFunctions";
+import { createContext, useEffect, useRef, useState } from "react";
 import { Envelope, Loop, Synth, Transport } from 'tone';
 
 const MetronomeContext = createContext();
@@ -33,7 +35,7 @@ function MetronomeProvider({ children }) {
       return newMeasure;
     });
   }
-
+ 
   const updateCurrentBeat = () => {
     setCurrentBeat(prevBeat => prevBeat + 1);
   }
