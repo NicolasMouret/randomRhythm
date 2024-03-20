@@ -1,13 +1,13 @@
 'use client';
 import MetronomeControl from '@/components/MetronomeControl/MetronomeControl';
 import OptionsButton from '@/components/OptionsControl/OptionsButton';
-import RythmDisplay from '@/components/RhythmDisplay/RythmDisplay';
 import OptionsDisplay from '@/components/OptionsControl/OptionsDisplay';
+import RythmDisplay from '@/components/RhythmDisplay/RythmDisplay';
 import { MetronomeContext } from "@/contexts/MetronomeContext";
 import {
   createMeasureToDisplay,
 } from '@/utils/utilsFunctions';
-import { useContext, useEffect, useState } from 'react'; 
+import { useContext, useEffect, useState } from 'react';
 
 export default function Home() {
   const {beatsPerMeasure,  
@@ -28,7 +28,7 @@ export default function Home() {
         </div>
         {isOptionsOpen ? 
           <OptionsDisplay /> :
-          <RythmDisplay notesSelection={notesSelection} measureToDisplay={measureToDisplay}/>}
+          <RythmDisplay measureToDisplay={measureToDisplay}/>}
       </main>
   )
 }
