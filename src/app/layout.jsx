@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <MetronomeProvider>
           <body className={josefin.className}>
-          <h1 className="mt-10 text-center text-7xl text-slate-800">RandomRhythm</h1>
+          <h1 className="mt-10 text-[2.75rem] font-bold text-center md:text-7xl text-slate-800">RandomRhythm</h1>
           {children}
           </body>
       </MetronomeProvider>
