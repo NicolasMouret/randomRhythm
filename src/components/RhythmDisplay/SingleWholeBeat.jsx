@@ -5,14 +5,11 @@ export default function SingleWholeBeat({note, id}) {
   return (
     <Image 
       id={id}
-      className={``}
+      className={`w-full h-full`}
       src={imagePath} 
       alt={name} 
       width={250} 
-      height={300} 
-      style={{ 
-      minHeight: "250px",
-      maxHeight: "300px",}}
+      height={300}
     />
   )
 }
